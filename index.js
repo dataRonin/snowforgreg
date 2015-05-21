@@ -94,6 +94,8 @@ app.io.on("connection", function (socket) {
                     var fixedDate = ('0' + (date.getMonth() + 1) + '/0' + date.getDate() + '/' + date.getFullYear());
                 } else if (date.getMonth() <= 8 && date.getDate() > 9) {
                     var fixedDate = ('0' + (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear());
+                } else if (date.getMonth() > 8 && date.getDate() <= 9) {
+                    var fixedDate = ((date.getMonth() + 1) + '/0' + date.getDate() + '/' + date.getFullYear());
                 } else {
                     var fixedDate = ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear());
                 }
@@ -125,6 +127,34 @@ app.io.on("connection", function (socket) {
                     if (err) return console.error(err);
                     log(row);
                     socket.emit("refresh-data", row);
+                });
+            });
+        }
+    });
+
+    // this gets the 9 am picture
+    socket.on("modal9", function (req) {
+        if (req) {
+            db.serialize(function () {
+                var sql = "SELECT img_src as img FROM snowimages WHERE date_time = ? and hour = 9";
+                db.get(sql, req.date, function (err, row) {
+                    if (err) return console.error(err);
+                    console.log("the image to get is " + row.img);
+                    socket.emit("modal1", row.img);
+                });
+            });
+        }
+    });
+
+    // this gets the 3 pm picture
+    socket.on("modal3", function (req) {
+        if (req) {
+            db.serialize(function () {
+                var sql = "SELECT img_src as img FROM snowimages WHERE date_time = ? and hour = 3";
+                db.get(sql, req.date, function (err, row) {
+                    if (err) return console.error(err);
+                    console.log("the image to get is " + row.img);
+                    socket.emit("modal2", row.img);
                 });
             });
         }
