@@ -1,0 +1,32 @@
+{
+  "name": "snowdepth",
+  "version": "0.0.1",
+  "description": "for greg to input information about snow depth",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "connect-flash": "latest",
+    "ejs": "latest",
+    "errorhandler": "latest",
+    "express": "latest",
+    "express.io": "latest",
+    "fs": "0.0.2",
+    "jquery": "latest",
+    "longjohn": "latest",
+    "sessions": "latest",
+    "socket.io": "latest",
+    "sqlite3": "latest",
+    "underscore": "latest"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dataRonin/snowdepth.git"
+  },
+  "keywords": [],
+  "license": "MIT"
+}

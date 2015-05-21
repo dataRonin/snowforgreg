@@ -1,0 +1,120 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snow Depth Tool</title>
+    <meta name="description" content="Tool for processing snow depth for Greg"/>
+    <meta name="author" content="Fox Peterson"/>
+    <meta name="copyright" content="Fox Peterson, MIT License(c) 2015"/>
+    <link rel="stylesheet" type="text/css" href="../css/foundation.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery-migrate.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      showOtherMonths: true,
+      selectOtherMonths: true
+    });
+  });
+  </script>
+</head>
+<body>
+
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Snow Depth Input Tool</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="has-dropdown">
+        <a href="#">Options</a>
+        <ul class="dropdown">
+          <li class="active"><a href="#">Login</a></li>
+
+          <li><a href="#">Exit</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section 
+    <ul class="left">
+      <li><a href="#">Left Nav Button</a></li>
+    </ul>-->
+  </section>
+</nav>
+
+<div class="vertical-spacer-25"></div>
+
+<form>
+<div class="row">
+  <div class="large-5 columns">
+    <div class="vertical-spacer-25"></div>
+    <label> Date </label> 
+    <input type="text" id="datepicker" placeholder="11/20/2014"/>
+    <div class="vertical-spacer-25"></div>
+    <label> Snow Depth </label>
+    <input type="text" id="depth" placeholder="0.0"/>
+    <div class="vertical-spacer-25"></div>
+    <label> Coverage </label>
+    <input type="text" id="coverage" placeholder="0.0 %"/>
+    <div class="vertical-spacer-25"></div>
+    <label> Notes </label>
+    <textarea id="notes" placeholder="Random Notes"></textarea>
+  </div>
+  <div class="large-7 columns">
+    <div class="vertical-spacer-25"></div>
+    <h1><img href="#" id="snowpic" src="/images/WSCT0002.jpg" ></h1>
+  </div>
+</div>
+</form>
+
+
+<footer class="row">
+<div class="large-12 columns">
+<hr/>
+<div class="row">
+<div class="large-4 columns">
+<p>&copy; Fox Peterson 2015</p>
+</div>
+<div class="large-8 columns">
+<ul class="inline-list right">
+<li><a href="#" id="9and3">Show 9 and 3</a></li>
+<li><a href="#" id="prev">Previous Image</a></li>
+<li><a href="#" id="next">Next Image</a></li>
+<li><a href="#" id="nav">Navigation Page</a></li>
+<li><a href="#" id="print">View Printable Table</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+    <script src="/js/placeholders.min.js"></script>
+    <script src="/js/foundation/foundation.js"></script>
+    <script src="/js/foundation/foundation.dropdown.js"></script>
+    <script src="/js/foundation/foundation.topbar.js"></script>
+    <script src="/js/foundation/foundation.tab.js"></script>
+    <script src="/js/foundation/foundation.reveal.js"></script>
+    <script src="/js/foundation/foundation.clearing.js"></script>
+    <script src="/js/socket.io.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+      $(document).foundation();
+      var doc = document.documentElement;
+      doc.setAttribute('data-useragent', navigator.userAgent);
+    </script>
+  </body>
+</html>
