@@ -1,5 +1,5 @@
 /**
- * Front-end core
+ * CLIENT
  */
 (function ($) {
 
@@ -14,9 +14,12 @@
             $('#depth').val(data.depth);
         });
         socket.on('updated-date', function (data) {
-            console.log(data);
+            $("#snowpic").attr("src", "/images/" + data.img);
+            $("#coverage").val(data.coverage);
+            $('#datepicker').val(data.dt);
+            $('#notes').val(data.notes);
+            $('#depth').val(data.depth);
         });
-
     }
 
     // Send messages through websocket to server
@@ -37,6 +40,7 @@
 
         $('#datepicker').change(function () {
             var date = $('#datepicker').val();
+            console.log('the date i am changing to is ' + date )
             socket.emit("get-date-data", { date: date });
         });
     }

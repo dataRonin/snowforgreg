@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Node.js back-end core
+ * SERVER SIDE
  * @author Fox Peterson (fox@tinybike.net)
  */
 var express = require('express')
@@ -47,8 +47,10 @@ app.get('/', function (req, res) {
     res.render('page');
 });
 
+// establish the databse
 var db = new sqlite3.Database('snow.db');
 
+// lets us know if connected (server side)
 app.io.on("connection", function (socket) {
     console.log("websocket connected");
     socket.on("disconnect", function () {
@@ -56,15 +58,20 @@ app.io.on("connection", function (socket) {
     });
 
     // Websocket endpoints
+
+    // when you first connect, display the first image
     socket.on('display-initial-data', function (req) {
         console.log("display-initial-data: checking if data exists");
         db.serialize(function () {
-            db.get("SELECT date_time as dt, img_src as img, notes as notes, coverage as coverage, depth as depth FROM snowimages WHERE hour = 12 ORDER BY date_time ASC LIMIT 1", function (err, row) {
+            db.get("SELECT date_time as dt, img_src as img, notes as notes, coverage as coverage, depth as depth FROM snowimages WHERE hour = 12 and date_time = '11/20/2014'", function (err, row) {
                 if (err) return console.error(err);
+                console.log(row.dt);
                 socket.emit("refresh-data", row);
             });
         });
     });
+
+    // when you click on the next button, first update the database with the values which are currently in the fields
     socket.on("update-data", function (req) {
         if (req) {
             var sql = "UPDATE snowimages SET notes = ?, coverage = ?, depth = ? WHERE date_time = ?";
@@ -75,26 +82,46 @@ app.io.on("connection", function (socket) {
                     console.log(this);
                 }
             });
+
+            // Then, actually get the subsequent day
             db.serialize(function () {
+                console.log("the incoming date time is " + req.dt);
+                
+                var date = new Date(req.dt);
+                date.setDate(date.getDate() + 1);
+                
+                if (date.getMonth() <= 8 && date.getDate() <= 9) {
+                    var fixedDate = ('0' + (date.getMonth() + 1) + '/0' + date.getDate() + '/' + date.getFullYear());
+                } else if (date.getMonth() <= 8 && date.getDate() > 9) {
+                    var fixedDate = ('0' + (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear());
+                } else {
+                    var fixedDate = ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear());
+                }
+
+                console.log("the parsed date time with an extra day is " + fixedDate);
+
                 // here's where the next date goes
-                db.each("SELECT * FROM snowimages WHERE depth = 10000 ORDER BY date_time DESC", function (err, row) {
+                var sql = "SELECT date_time as dt, img_src as img, notes as notes, coverage as coverage, depth as depth FROM snowimages WHERE date_time = ? and hour = 12 LIMIT 1";
+                db.get(sql, [fixedDate], function (err, row) {
                     if (err) return console.error(err);
                     console.log(row);
-                    var updated_data = {};
-                    socket.emit("updated-data", updated_data);
+                    var updated_data = row;
+                    socket.emit("updated-date", updated_data);
                 });
             });
         }
     });
+
+    // this needs to get a certain day
     socket.on("get-date-data", function (req) {
         if (req) {
-            log(req.date);
-            var date = new Date(req.date.replace('/', '-'));
-            date.setHours(date.getHours() + 12);
-            log(date);
+            console.log("the socket is sending me " + req.date.date);
+            //var date = new Date(req.date.replace('/', '-'));
+            //date.setHours(date.getHours() + 12);
+            //log(date);
             db.serialize(function () {
-                var sql = "SELECT * FROM snowimages WHERE date_time = ? LIMIT 1";
-                db.get(sql, date, function (err, row) {
+                var sql = "SELECT date_time as dt, img_src as img, notes as notes, coverage as coverage, depth as depth FROM snowimages WHERE date_time = ? and hour = 12";
+                db.get(sql, req.date, function (err, row) {
                     if (err) return console.error(err);
                     log(row);
                     socket.emit("refresh-data", row);
