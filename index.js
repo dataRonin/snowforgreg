@@ -68,6 +68,18 @@ app.io.on("connection", function (socket) {
                 console.log(row.dt);
                 socket.emit("refresh-data", row);
             });
+            // fill the modals
+            db.get("SELECT img_src as img FROM snowimages WHERE hour = 9 and date_time = '11/20/2014'", function (err, row) {
+                if (err) return console.error(err);
+                console.log("connecting and passing " + row.img);
+                socket.emit("modal1", row.img);
+            });
+            // fill the modals
+            db.get("SELECT img_src as img FROM snowimages WHERE hour = 3 and date_time = '11/20/2014'", function (err, row) {
+                if (err) return console.error(err);
+                console.log("connecting and passing " + row.img);
+                socket.emit("modal2", row.img);
+            });
         });
     });
 
@@ -85,7 +97,7 @@ app.io.on("connection", function (socket) {
 
             // Then, actually get the subsequent day
             db.serialize(function () {
-                console.log("the incoming date time is " + req.dt);
+                //console.log("the incoming date time is " + req.dt);
                 
                 var date = new Date(req.dt);
                 date.setDate(date.getDate() + 1);
@@ -110,6 +122,7 @@ app.io.on("connection", function (socket) {
                     var updated_data = row;
                     socket.emit("updated-date", updated_data);
                 });
+               
             });
         }
     });
@@ -128,32 +141,18 @@ app.io.on("connection", function (socket) {
                     log(row);
                     socket.emit("refresh-data", row);
                 });
-            });
-        }
-    });
-
-    // this gets the 9 am picture
-    socket.on("modal9", function (req) {
-        if (req) {
-            db.serialize(function () {
-                var sql = "SELECT img_src as img FROM snowimages WHERE date_time = ? and hour = 9";
-                db.get(sql, req.date, function (err, row) {
+                // fill the modals
+                var sql2 = "SELECT img_src as img FROM snowimages WHERE date_time = ? and hour = 9";
+                db.get(sql2, req.date, function (err, row) {
                     if (err) return console.error(err);
-                    console.log("the image to get is " + row.img);
+                    console.log("connecting and passing from updated " + row.img);
                     socket.emit("modal1", row.img);
                 });
-            });
-        }
-    });
-
-    // this gets the 3 pm picture
-    socket.on("modal3", function (req) {
-        if (req) {
-            db.serialize(function () {
-                var sql = "SELECT img_src as img FROM snowimages WHERE date_time = ? and hour = 3";
-                db.get(sql, req.date, function (err, row) {
+                // fill the modals
+                var sql3 = "SELECT img_src as img FROM snowimages WHERE date_time = ? and hour = 3 LIMIT 1";
+                db.get(sql3, req.date, function (err, row) {
                     if (err) return console.error(err);
-                    console.log("the image to get is " + row.img);
+                    console.log("connecting and passing from updated" + row.img);
                     socket.emit("modal2", row.img);
                 });
             });

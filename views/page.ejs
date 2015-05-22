@@ -92,16 +92,27 @@
 </div>
 <div class="large-8 columns">
 <ul class="inline-list right">
-<li><a href="#" id="9and3">Show 9 and 3</a></li>
-<li><a href="#" id="prev">Submit This Image</a></li>
-<li><a href="#" id="next">Get Next Image</a></li>
-<li><a href="#" id="nav">Trick out H15Met</a></li>
+
+<li><a href="#" data-reveal-id="nine">Show 9</a></li>
+<li><a href="#" data-reveal-id="three">Show 3</a></li>
+<li><a href="#" id="next">Submit and Next Image</a></li>
 <li><a href="#" id="print">View Printable Table</a></li>
 </ul>
 </div>
 </div>
 </div>
 </footer>
+<div id="nine" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">9 AM Photo</h2>
+  <h1><img href="#" id="snowpic_modal1" src="/images/WSCT0003.jpg" ></h1>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+<div id="three" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">3 PM Photo</h2>
+  <h1><img href="#" id="snowpic_modal2" src="/images/WSCT0004.jpg" ></h1>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
     <script src="/js/placeholders.min.js"></script>
     <script src="/js/foundation/foundation.js"></script>
     <script src="/js/foundation/foundation.dropdown.js"></script>
@@ -116,5 +127,6 @@
       var doc = document.documentElement;
       doc.setAttribute('data-useragent', navigator.userAgent);
     </script>
+
   </body>
 </html>

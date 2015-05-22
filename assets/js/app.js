@@ -38,22 +38,7 @@
     // Send messages through websocket to server
     function socket_emitters(socket) {
         socket.emit('display-initial-data');
-        socket.emit('modal9');
-        socket.emit('modal3');
-
-        $('#nine').click(function (event) {
-            //event.preventDefault();
-            var date = $('#datepicker').val();
-            console.log("the date in datepicker is " + date);
-            socket.emit('modal9', { date: date });
-        });
-
-        $('#three').click(function (event) {
-            //event.preventDefault();
-            var date = $('#datepicker').val();
-            console.log("the date in datepicker is " + date);
-            socket.emit('modal3', { date: date });
-        });
+        
 
         $('#next').click(function (event) {
             event.preventDefault();
