@@ -1,0 +1,103 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snow Depth Tool</title>
+    <meta name="description" content="Tool for processing snow depth for Greg"/>
+    <meta name="author" content="Fox Peterson"/>
+    <meta name="copyright" content="Fox Peterson, MIT License(c) 2015"/>
+    <link rel="stylesheet" type="text/css" href="../css/foundation.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery-migrate.min.js"></script>
+</head>
+<body>
+
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Snow Depth Input Tool</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="has-dropdown">
+        <a href="#">Options</a>
+        <ul class="dropdown">
+          <li class="active"><a href="#">Login</a></li>
+
+          <li><a href="#">Exit</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section 
+    <ul class="left">
+      <li><a href="#">Left Nav Button</a></li>
+    </ul>-->
+  </section>
+</nav>
+
+<div class="vertical-spacer-25"></div>
+
+<form>
+  <div class="row">
+    <div class="large-5 columns centered">
+      <label> Date </label>
+      <input type="text" id="date" placeholder="It's Today"/>
+      <div class="vertical-spacer-25"></div>
+      <label> Snow Depth </label>
+      <input type="text" id="depth" placeholder="0.0"/>
+      <div class="vertical-spacer-25"></div>
+      <label> Notes </label>
+      <textarea id="notes" placeholder="Random Notes"></textarea>
+      <a href="#" class="button">Submit</a>
+    </div>
+    <div class="large-7 columns">
+      <h1><img src="http://placehold.it/700x400&text=SomeLovelySnow"></h1>
+    </div>
+  </div>
+</form>
+ 
+<footer class="row">
+<div class="large-12 columns">
+<hr/>
+<div class="row">
+<div class="large-6 columns">
+<p>&copy; Fox Peterson 2015</p>
+</div>
+<div class="large-6 columns">
+<ul class="inline-list right">
+<li><a href="#">Next Image</a></li>
+<li><a href="#">Previous Image</a></li>
+<li><a href="#">Calendar Page</a></li>
+<li><a href="#">View Table</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+    <script src="/js/placeholders.min.js"></script>
+    <script src="/js/foundation/foundation.js"></script>
+    <script src="/js/foundation/foundation.dropdown.js"></script>
+    <script src="/js/foundation/foundation.topbar.js"></script>
+    <script src="/js/foundation/foundation.tab.js"></script>
+    <script src="/js/foundation/foundation.reveal.js"></script>
+    <script src="/js/foundation/foundation.clearing.js"></script>
+    <script src="/js/socket.io/socket.io.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+      $(document).foundation();
+      var doc = document.documentElement;
+      doc.setAttribute('data-useragent', navigator.userAgent);
+    </script>
+  </body>
+</html>

@@ -15,7 +15,8 @@ var express = require('express')
     , fs = require('fs')
     , sqlite3 = require('sqlite3').verbose();
 
-/* Configuration - index.js is really just the routes that we are calling */
+/* Configuration - index.js is really just the route to the main page
+ that we are calling */
 
 // name the app variable, call it over regular http://
 var app = express_io();
@@ -98,10 +99,10 @@ app.io.on("connection", function (socket) {
             // Then, actually get the subsequent day
             db.serialize(function () {
                 //console.log("the incoming date time is " + req.dt);
-                
+
                 var date = new Date(req.dt);
                 date.setDate(date.getDate() + 1);
-                
+
                 if (date.getMonth() <= 8 && date.getDate() <= 9) {
                     var fixedDate = ('0' + (date.getMonth() + 1) + '/0' + date.getDate() + '/' + date.getFullYear());
                 } else if (date.getMonth() <= 8 && date.getDate() > 9) {
@@ -122,7 +123,7 @@ app.io.on("connection", function (socket) {
                     var updated_data = row;
                     socket.emit("updated-date", updated_data);
                 });
-               
+
             });
         }
     });
@@ -167,12 +168,12 @@ app.io.on("connection", function (socket) {
 
 //             req.io.emit('displaydata', img)
 //         });
-//     });   
+//     });
 
 // app.io.route('dateget', function (data) {
 //     var db = new sqlite3.Database('snow.db');
-//         //db.each("SELECT img_src AS image, depth AS depth, notes AS notes, coverage AS coverage, insession AS insession FROM snowimages WHERE dt ", function(err, row) { 
-        
+//         //db.each("SELECT img_src AS image, depth AS depth, notes AS notes, coverage AS coverage, insession AS insession FROM snowimages WHERE dt ", function(err, row) {
+
 //         db.each("SELECT date_time as dt, img_src as img, notes as notes, coverage as coverage, insession as insession FROM snowimages WHERE hour = 12 and date_time = \'"+ data +"\' LIMIT 1", function(err, row) {
 
 //             console.log(row.dt, row.img, row.notes, row.coverage, row.insession);
@@ -185,6 +186,4 @@ app.io.on("connection", function (socket) {
 
 //             req.io.emit('displaydata', img)
 //         });
-//     });   
-
-
+//     });
